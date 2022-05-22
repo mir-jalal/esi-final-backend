@@ -1,1 +1,1 @@
-web: java -jar build/libs/backend-esi-0.0.1-SNAPSHOT.jar
+web: java -jar build/libs/esi-final-backend-0.0.1-SNAPSHOT.jar

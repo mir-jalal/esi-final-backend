@@ -24,7 +24,7 @@ public class UserService {
     private final ObjectMapper objectMapper;
 
     private final List<String> availableRoles = new ArrayList<>(
-            Arrays.asList("ROLE_ADMIN", "ROLE_USER"));
+            Arrays.asList("ROLE_ADMIN", "ROLE_COMPANY", "ROLE_GUEST"));
 
     public UserDto createUser(UserCreateDto userCreateDto) {
         return objectMapper.convertValue(userRepository.save(User.builder()

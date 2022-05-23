@@ -40,4 +40,8 @@ public class UserService {
             return role;
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Role does not exists");
     }
+
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow();
+    }
 }

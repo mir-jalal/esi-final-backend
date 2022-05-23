@@ -20,7 +20,7 @@ public class TourService {
         return repository.save(objectMapper.convertValue(tourDto, Tour.class));
     }
 
-    public List<Tour> getAll() {
+    public List<Tour> findAll() {
         return repository.findAll();
     }
 
@@ -35,5 +35,9 @@ public class TourService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public Tour findById(Long tourId) {
+        return repository.findById(tourId).orElseThrow();
     }
 }

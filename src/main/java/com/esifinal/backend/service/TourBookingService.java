@@ -26,7 +26,7 @@ public class TourBookingService {
 
     public TourBookingDto create(TourBookingDto createBookingDto) {
         TourOffer tourOffer = tourOfferRepository.findById(createBookingDto.getTourId()).orElseThrow();
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
 
         if (tourOffer.getStatus() != TourOfferStatus.APPROVED) {

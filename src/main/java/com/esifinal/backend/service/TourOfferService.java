@@ -26,10 +26,10 @@ public class TourOfferService {
     private final ObjectMapper objectMapper;
 
     public TourOfferDto create(TourCreateOfferDto tourCreateOfferDto) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext();
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         TourOffer tour = objectMapper.convertValue(tourCreateOfferDto, TourOffer.class);
-        tour.setUser(userService.findUserByUsername(userDetails.getUsername()));
+        tour.setUser(userService.findUserByUsername(username));
         tour.setStatus(TourOfferStatus.CREATED);
         tour.setPrice(tourCreateOfferDto.getPrice());
         tour.setTour(tourService.findById(tourCreateOfferDto.getTourId()));
@@ -38,8 +38,8 @@ public class TourOfferService {
     }
 
     public TourOfferDto update(TourCreateOfferDto tourCreateOfferDto, Long id) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext();
-        TourOffer tourOffer = repository.findByIdAndUser_Username(id, userDetails.getUsername()).orElseThrow();
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        TourOffer tourOffer = repository.findByIdAndUser_Username(id, username).orElseThrow();
 
         if (tourOffer.getStatus() == TourOfferStatus.APPROVED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot update approved offer");
@@ -49,8 +49,8 @@ public class TourOfferService {
     }
 
     public void delete(Long id) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext();
-        TourOffer tourOffer = repository.findByIdAndUser_Username(id, userDetails.getUsername()).orElseThrow();
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        TourOffer tourOffer = repository.findByIdAndUser_Username(id, username).orElseThrow();
 
         if (tourOffer.getStatus() == TourOfferStatus.APPROVED) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot update approved offer");

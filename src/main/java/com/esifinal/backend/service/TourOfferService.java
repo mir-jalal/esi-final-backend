@@ -25,6 +25,10 @@ public class TourOfferService {
     private final TourService tourService;
     private final ObjectMapper objectMapper;
 
+    public TourOfferDto findById(Long id) {
+        return objectMapper.convertValue(repository.findById(id).orElseThrow(), TourOfferDto.class);
+    }
+
     public TourOfferDto create(TourCreateOfferDto tourCreateOfferDto) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext();
 

@@ -19,7 +19,7 @@ public class TourController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Tour> createTour(@RequestBody TourDto tourDto){
+    public ResponseEntity<Tour> createTour(TourDto tourDto){
         return new ResponseEntity<>(service.create(tourDto), HttpStatus.CREATED);
     }
 
